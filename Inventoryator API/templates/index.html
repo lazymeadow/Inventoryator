@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventoryator Rest Client API</title>
+    <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+<h1>Inventoryator Rest Client API</h1>
+<dl>
+    <dt>
+        /inventory/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                GET
+            </dt>
+            <dd>
+                Returns a list of all inventories available as list of objects.
+            </dd>
+            <dt>
+                POST
+            </dt>
+            <dd>
+                Creates a new inventory. <br/>
+                Post body must be of form {"name": str, "description": str} <br/>
+                Data returned includes assigned database id.
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /inventory/(int:id)/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                GET
+            </dt>
+            <dd>
+                Returns inventory with given as object.
+            </dd>
+            <dt>
+                PUT
+            </dt>
+            <dd>
+                Updates the inventory with the given id. <br/>
+                Put body must be of form {"name": str, "description": str}, though only desired updates need to be
+                included. <br/>
+                Data returned is the updated inventory data.
+            </dd>
+            <dt>
+                DELETE
+            </dt>
+            <dd>
+                Deletes the inventory with the given id from the database.
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /inventory/(int:id)/items/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                GET
+            </dt>
+            <dd>
+                Returns a list of items in the inventory with the given id, as a list of objects.
+            </dd>
+            <dt>
+                POST
+            </dt>
+            <dd>
+                Adds the provided item to the inventory with the given id. <br/>
+                Post body must be of the form {"name": str, "number": int} <br/>
+                Returns dadta for the item added, including its database id.
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /items/(int:id)/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                DELETE
+            </dt>
+            <dd>
+                Deletes the item with the given id from the database.
+            </dd>
+        </dl>
+    </dd>
+</dl>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_item_inventory_name"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Not right"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_margin="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/list_item_inventory_description"
+        android:layout_alignParentBottom="false"
+        android:layout_alignStart="@+id/list_item_inventory_name"
+        android:layout_below="@+id/list_item_inventory_name"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="24dp" />
+
+</RelativeLayout>

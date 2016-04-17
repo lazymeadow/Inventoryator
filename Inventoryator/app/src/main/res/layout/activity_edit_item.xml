@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/item_name_label"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@string/item_name"
+        android:text="@string/item_name" />
+
+    <EditText
+        android:id="@+id/edit_item_name"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/item_name_label"
+        android:layout_marginBottom="16dp"
+        android:enabled="true"
+        android:hint="@string/default_item_title" />
+
+    <TextView
+        android:id="@+id/item_number_label"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_item_name"
+        android:labelFor="@string/item_number"
+        android:text="@string/item_number" />
+
+    <EditText
+        android:id="@+id/edit_item_number"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/item_number_label"
+        android:layout_marginBottom="16dp"
+        android:enabled="true"
+        android:inputType="number" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_item"
+        android:id="@+id/update_item_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/Base.Widget.AppCompat.Button.Colored" />
+
+</RelativeLayout>

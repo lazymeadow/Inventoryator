@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/inventory_name_label"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@string/inventory_name"
+        android:text="@string/inventory_name" />
+
+    <EditText
+        android:id="@+id/edit_inventory_name"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/inventory_name_label"
+        android:layout_marginBottom="16dp"
+        android:enabled="true"
+        android:hint="@string/default_inventory_title" />
+
+    <TextView
+        android:id="@+id/inventory_description_label"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_inventory_name"
+        android:labelFor="@string/inventory_description"
+        android:text="@string/inventory_description" />
+
+    <EditText
+        android:id="@+id/edit_inventory_description"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/inventory_description_label"
+        android:layout_marginBottom="16dp"
+        android:enabled="true"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_inventory"
+        android:id="@+id/edit_inventory_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/Base.Widget.AppCompat.Button.Colored" />
+
+</RelativeLayout>

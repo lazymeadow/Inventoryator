@@ -1,0 +1,19 @@
+body {
+    font-family: sans-serif;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd dt {
+    font-weight: normal;
+    font-style: italic;
+}
+dd dd {
+    padding-bottom: 0;
+}
+
+dd {
+    padding-bottom: 2em;
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.audreymavramccormick.inventoryator">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="com.orm.SugarApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light">
+        <activity
+            android:name=".MainScreenActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".UserAuthActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".MainScreenActivity">
+        </activity>
+
+        <activity android:name=".RegisterUserActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:parentActivityName=".UserAuthActivity">
+        </activity>
+
+        <activity android:name=".NewUserActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".MainScreenActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+
+        <activity
+            android:name=".NewInventoryActivity"
+            android:label="@string/new_inventory"
+            android:parentActivityName=".LoadInventoryActivity">
+
+        </activity>
+
+        <activity
+            android:name=".EditInventoryActivity"
+            android:label="@string/edit_inventory"
+            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
+            android:parentActivityName=".ViewInventoryActivity">
+
+        </activity>
+
+        <activity
+            android:name=".LoadInventoryActivity"
+            android:label="@string/load_inventory"
+            android:parentActivityName=".MainScreenActivity">
+
+        </activity>
+        <activity
+            android:name=".ViewInventoryActivity"
+            android:label="@string/view_inventory"
+            android:parentActivityName=".LoadInventoryActivity">
+
+        </activity>
+        <activity
+            android:name=".NewItemActivity"
+            android:label="@string/new_item"
+            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
+            android:parentActivityName=".ViewInventoryActivity">
+
+        </activity>
+        <activity
+            android:name=".EditItemActivity"
+            android:label="@string/edit_item"
+            android:theme="@style/Theme.AppCompat.Light.DialogWhenLarge"
+            android:parentActivityName=".ViewInventoryActivity">
+
+        </activity>
+
+        <meta-data
+            android:name="DATABASE"
+            android:value="sugar_inventory.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="2" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="com.audreymavramccormick.inventoryator" />
+    </application>
+
+</manifest>
