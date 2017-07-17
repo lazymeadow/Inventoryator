@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 flask_mysql_config(app)
 
-from lib import db
+from lib import db, crossdomain
 
 db.init_app(app)
 
@@ -20,9 +20,10 @@ app.register_blueprint(user_api)
 
 
 @app.route('/', methods=['GET'])
+@crossdomain(origin='*')
 def guide():
     return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)

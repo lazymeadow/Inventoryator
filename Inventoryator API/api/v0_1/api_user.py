@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, make_response, request
 from sqlalchemy.exc import IntegrityError
-from webargs import Arg, ValidationError
+from webargs import ValidationError, fields
 from api.v0_1.api_lib import password_length_validator, verify_user
-from lib import db, parser, db_add, db_delete
+from lib import db, parser, db_add, db_delete, crossdomain
 from models.inventory import User, Inventory
 from serializers.inventory import UserSchema, InventorySchema
 
@@ -10,6 +10,7 @@ user_api = Blueprint('user', __name__)
 
 
 @user_api.route('/user/', methods=['GET'])
+@crossdomain(origin='*')
 def get_all_users():
     users = db.session.query(User).all()
     if len(users) == 0:
@@ -18,10 +19,11 @@ def get_all_users():
 
 
 @user_api.route('/login/', methods=['PUT'])
+@crossdomain(origin='*')
 def login_user():
     user_args = {
-        'username': Arg(str, required=True),
-        'password': Arg(str, required=True, validate=password_length_validator, use=lambda val: val.lower())
+        'username': fields.Str(required=True),
+        'password': fields.Str(required=True, validate=password_length_validator, use=lambda val: val.lower())
     }
     print request.json
 
@@ -32,11 +34,12 @@ def login_user():
 
 
 @user_api.route('/user/', methods=['POST'])
+@crossdomain(origin='*')
 def register_user():
     user_args = {
-        'username': Arg(str, required=True),
-        'password1': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'password2': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower())
+        'username': fields.Str(required=True),
+        'password1': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'password2': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower())
     }
 
     args = parser.parse(user_args, request)
@@ -57,6 +60,7 @@ def register_user():
 
 
 @user_api.route('/user/<string:username>/', methods=['GET'])
+@crossdomain(origin='*')
 def get_user(username):
     user = db.session.query(User).get(username)
     if user is None:
@@ -65,21 +69,22 @@ def get_user(username):
 
 
 @user_api.route('/user/<string:username>/', methods=['PUT'])
+@crossdomain(origin='*')
 def update_password(username):
     user = db.session.query(User).get(username)
     if user is None:
         return make_response(jsonify({'data': 'User {} not found.'.format(username)}), 200)
 
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower())
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower())
     }
     args = parser.parse(verify_args, request)
     if verify_user(username, args['password']) is False:
         return make_response(jsonify({'success': False, 'error': 'Password incorrect'}), 401)
 
     user_args = {
-        'password1': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'password2': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower())
+        'password1': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'password2': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower())
     }
 
     args = parser.parse(user_args, request)
@@ -95,6 +100,7 @@ def update_password(username):
 
 
 @user_api.route('/user/<string:username>/share/<string:share_code>/', methods=['PUT'])
+@crossdomain(origin='*')
 def share_inventory(username, share_code):
     user = db.session.query(User).get(username)
 
@@ -102,7 +108,7 @@ def share_inventory(username, share_code):
         return make_response(jsonify({'success': False, 'data': 'User {} not found.'.format(username)}), 404)
 
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower())
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower())
     }
     args = parser.parse(verify_args, request)
     if verify_user(username, args['password']) is False:
@@ -124,6 +130,7 @@ def share_inventory(username, share_code):
 
 
 @user_api.route('/user/<string:username>/inventory/', methods=['GET'])
+@crossdomain(origin='*')
 def get_user_inventories(username):
     user = db.session.query(User).get(username)
 
@@ -131,7 +138,7 @@ def get_user_inventories(username):
         return make_response(jsonify({'data': 'User {} not found.'.format(username)}), 200)
 
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower())
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower())
     }
     args = parser.parse(verify_args, request)
     if verify_user(username, args['password']) is False:
@@ -141,6 +148,7 @@ def get_user_inventories(username):
 
 
 @user_api.route('/user/<string:username>/inventory/<int:inventory_id>/', methods=['PUT'])
+@crossdomain(origin='*')
 def add_inventory(username, inventory_id):
     user = db.session.query(User).get(username)
 
@@ -148,7 +156,7 @@ def add_inventory(username, inventory_id):
         return make_response(jsonify({'data': 'User {} not found.'.format(username)}), 200)
 
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower())
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower())
     }
     args = parser.parse(verify_args, request)
     if verify_user(username, args['password']) is False:
@@ -169,6 +177,7 @@ def add_inventory(username, inventory_id):
 
 
 @user_api.route('/user/<string:username>/inventory/<int:inventory_id>/', methods=['DELETE'])
+@crossdomain(origin='*')
 def remove_inventory(username, inventory_id):
     user = db.session.query(User).get(username)
 
@@ -176,7 +185,7 @@ def remove_inventory(username, inventory_id):
         return make_response(jsonify({'data': 'User {} not found.'.format(username)}), 200)
 
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower())
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower())
     }
     args = parser.parse(verify_args, request)
     if verify_user(username, args['password']) is False:
@@ -207,6 +216,7 @@ def remove_inventory(username, inventory_id):
 
 # webargs flaskparser error handling
 @user_api.errorhandler(422)
+@crossdomain(origin='*')
 def handle_bad_request(err):
     # webargs attaches additional metadata to the `data` attribute
     data = getattr(err, 'data')

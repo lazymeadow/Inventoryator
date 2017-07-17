@@ -2,9 +2,9 @@ import datetime
 import random
 import string
 from flask import Blueprint, make_response, jsonify, request
-from webargs import Arg
+from webargs import fields
 from api.v0_1.api_lib import password_length_validator, verify_user
-from lib import parser, db_add, db_delete, db
+from lib import parser, db_add, db_delete, db, crossdomain
 from models.inventory import Inventory, Item, User
 from serializers.inventory import InventorySchema, ItemSchema
 
@@ -23,6 +23,7 @@ def verify_user_access(username, inventory):
 
 
 @inventory_api.route('/inventory/', methods=['GET'])
+@crossdomain(origin='*')
 def get_inventories():
     inventories = db.session.query(Inventory).all()
     if len(inventories) == 0:
@@ -31,10 +32,11 @@ def get_inventories():
 
 
 @inventory_api.route('/inventory/<int:id>/', methods=['GET'])
+@crossdomain(origin='*')
 def get_inventory(id):
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'username': Arg(str, required=True)
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'username': fields.Str(required=True)
     }
     args = parser.parse(verify_args, request)
     if verify_user(args['username'], args['password']) is False:
@@ -53,10 +55,11 @@ def get_inventory(id):
 
 
 @inventory_api.route('/inventory/', methods=['POST'])
+@crossdomain(origin='*')
 def make_inventory():
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'username': Arg(str, required=True)
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'username': fields.Str(required=True)
     }
     args = parser.parse(verify_args, request)
 
@@ -69,8 +72,8 @@ def make_inventory():
     username = args['username']
 
     request_args = {
-        'name': Arg(str, required=True),
-        'description': Arg(str)
+        'name': fields.Str(required=True),
+        'description': fields.Str()
     }
 
     args = parser.parse(request_args, request)
@@ -93,10 +96,11 @@ def make_inventory():
 
 
 @inventory_api.route('/inventory/<int:id>/share/', methods=['GET'])
+@crossdomain(origin='*')
 def generate_share_code(id):
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'username': Arg(str, required=True)
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'username': fields.Str(required=True)
     }
     args = parser.parse(verify_args, request)
     if verify_user(args['username'], args['password']) is False:
@@ -121,10 +125,11 @@ def generate_share_code(id):
 
 
 @inventory_api.route('/inventory/<int:id>/', methods=['PUT'])
+@crossdomain(origin='*')
 def edit_inventory(id):
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'username': Arg(str, required=True)
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'username': fields.Str(required=True)
     }
     args = parser.parse(verify_args, request)
     username = args['username']
@@ -132,8 +137,8 @@ def edit_inventory(id):
         return make_response(jsonify({'success': False, 'error': 'Password incorrect'}), 401)
 
     request_args = {
-        'name': Arg(str, allow_missing=True),
-        'description': Arg(str, allow_missing=True)
+        'name': fields.Str(allow_missing=True),
+        'description': fields.Str(allow_missing=True)
     }
 
     args = parser.parse(request_args, request)
@@ -163,10 +168,11 @@ def edit_inventory(id):
 
 
 @inventory_api.route('/inventory/<int:id>/items/', methods=['POST'])
+@crossdomain(origin='*')
 def add_item(id):
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'username': Arg(str, required=True)
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'username': fields.Str(required=True)
     }
     args = parser.parse(verify_args, request)
     if verify_user(args['username'], args['password']) is False:
@@ -174,7 +180,7 @@ def add_item(id):
     username = args['username']
 
     request_args = {
-        'name': Arg(str, required=True),
+        'name': fields.Str(required=True),
         'number': Arg(int, required=True)
     }
 
@@ -199,10 +205,11 @@ def add_item(id):
 
 
 @inventory_api.route('/inventory/<int:id>/items/', methods=['GET'])
+@crossdomain(origin='*')
 def get_items(id):
     verify_args = {
-        'password': Arg(str, validate=password_length_validator, required=True, use=lambda val: val.lower()),
-        'username': Arg(str, required=True)
+        'password': fields.Str(validate=password_length_validator, required=True, use=lambda val: val.lower()),
+        'username': fields.Str(required=True)
     }
     args = parser.parse(verify_args, request)
     if verify_user(args['username'], args['password']) is False:
@@ -236,13 +243,12 @@ def get_item_from_db(id):
 
 
 def inventory_schema_simple(inventory):
-    if type(inventory) == list:
-        return InventorySchema(inventory, many=True, only=('id', 'name', 'description')).data
-    return InventorySchema(inventory, only=('id', 'name', 'description')).data
+    return InventorySchema().dump(inventory, many=type(inventory) == list)
 
 
 # webargs flaskparser error handling
 @inventory_api.errorhandler(422)
+@crossdomain(origin='*')
 def handle_bad_request(err):
     # webargs attaches additional metadata to the `data` attribute
     data = getattr(err, 'data')

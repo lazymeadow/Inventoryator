@@ -79,15 +79,134 @@
         </dl>
     </dd>
     <dt>
+        /inventory/(int:id)/share/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                GET
+            </dt>
+            <dd>
+                Returns a share code.
+            </dd>
+        </dl>
+    </dd>
+    <dt>
         /items/(int:id)/
     </dt>
     <dd>
         <dl>
             <dt>
+                GET
+            </dt>
+            <dd>
+                Gets the item
+            </dd>
+            <dt>
+                PUT
+            </dt>
+            <dd>
+                Edits the item. <br/>
+                Post body must be of the form {"name": str, "number": int}
+            </dd>
+            <dt>
                 DELETE
             </dt>
             <dd>
                 Deletes the item with the given id from the database.
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /user/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                GET
+            </dt>
+            <dd>
+                Returns a list of all users.
+            </dd>
+            <dt>
+                PUT
+            </dt>
+            <dd>
+                Login the user. <br/>
+                Post body must be of the form {"username": str, "password": sha256}
+            </dd>
+            <dt>
+                POST
+            </dt>
+            <dd>
+                Create a user. <br/>
+                Post body must be of the form {"username": unique str, "password1": sha256, "password2": sha256}
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /user/(str:username)/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                GET
+            </dt>
+            <dd>
+                Returns the user.
+            </dd>
+            <dt>
+                PUT
+            </dt>
+            <dd>
+                Update the user's password. <br/>
+                Post body must be of the form {"password": sha256, "password1": sha256, "password2": sha256}
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /user/(str:username)/inventory/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                GET
+            </dt>
+            <dd>
+                Returns the user's inventories.
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /user/(str:username)/inventory/(int:inventory_id)/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                PUT
+            </dt>
+            <dd>
+                Adds an inventory to the user by id.
+            </dd>
+            <dt>
+                DELETE
+            </dt>
+            <dd>
+                Removes an inventory from a user's account. If no users have access to the inventory, it will be
+                deleted.
+            </dd>
+        </dl>
+    </dd>
+    <dt>
+        /user/(str:username)/share/(str:share_code)/
+    </dt>
+    <dd>
+        <dl>
+            <dt>
+                PUT
+            </dt>
+            <dd>
+                Adds an inventory to a user's account using a share code.
             </dd>
         </dl>
     </dd>
