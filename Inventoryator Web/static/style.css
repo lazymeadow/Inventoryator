@@ -1,0 +1,132 @@
+@import "fonts/fonts.css";
+body {
+  font-family: "eau_douce", sans-serif;
+}
+.hidden {
+  display: none;
+}
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  alignment: center;
+}
+.inline-block {
+  display: inline-block;
+}
+.block {
+  display: block;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.percent-w-30 {
+  width: 30%;
+}
+.percent-w-40 {
+  width: 40%;
+}
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.navbar {
+  vertical-align: middle;
+  text-align: left;
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+.navbar h1 {
+  font-size: 2.5em;
+  text-transform: lowercase;
+  margin-left: 10px;
+}
+.navbar h2 {
+  font-size: 2em;
+  text-transform: uppercase;
+}
+.navbar h1,
+.navbar h2 {
+  display: inline-block;
+}
+.navbar .login-blurb {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 10px;
+}
+.content {
+  position: relative;
+  top: 65px;
+}
+body,
+h1,
+h2,
+h3 {
+  color: #28B8D7;
+}
+h1 {
+  font-weight: bold;
+  font-size: 4em;
+  margin: 0;
+}
+h2 {
+  font-weight: 900;
+  font-size: 3em;
+}
+button,
+select,
+input {
+  font-weight: bold;
+  margin: 5px;
+  padding: 5px;
+  border: none;
+  font-family: inherit;
+  color: #187383;
+}
+button:hover,
+select:hover,
+input:hover {
+  color: #217BB8;
+  background-color: #D9ECF9;
+}
+a {
+  text-decoration: none;
+}
+a > div {
+  background-color: #D5F1F7;
+}
+a:hover,
+h1 > a:hover,
+h2 > a:hover,
+a:hover > div > h2 {
+  color: #2F94DA;
+}
+a:hover > div {
+  background-color: #D9ECF9;
+}
+a:visited {
+  color: #187383;
+}
+input {
+  border: 1px solid #7DD6E6;
+}
+label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+button {
+  padding: 10px 20px;
+}
+.inventory-link {
+  font-weight: bold;
+}

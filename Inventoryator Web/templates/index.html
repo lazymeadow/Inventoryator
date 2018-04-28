@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block includes %}
+{% endblock %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        {% if inventories %}
+            <table>
+                {% for inventory in inventories %}
+                    <tr>
+                        <td>
+                            <a class="inventory-link inline-block"
+                               href="{{ url_for('inventory', inventory_id=inventory.id) }}">
+                                {{ inventory.name }}
+                            </a>
+                        </td>
+                        <td>
+                            <button type="button" onclick="console.log('hi');">Share</button>
+                        </td>
+                        <td>
+                            <button type="button" onclick="console.log('bye');">Delete</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            You don't have any inventories.
+        {% endif %}
+        <div>
+            <button type="button" id="new-inventory" onclick="toggleNewInventory()">New Inventory</button>
+            <div class="hidden" id="inventory-form">
+                <form action="{{ url_for('new_inventory') }}" method="post">
+                    <label for="inventory-name">Name</label>
+                    <input type="text" id="inventory-name" name="name"/>
+                    <label for="inventory-description">Description</label>
+                    <input type="text" id="inventory-description" name="description"/>
+                    <button type="submit" id="add-inventory">Add Inventory</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block includes %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#registration-form").validate({
+                rules: {
+                    'password1': {
+                        required: true,
+                        minlength: 3,
+                        equalTo: '#password2'
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h3>Register yourself</h3>
+    <form id="registration-form">
+        <div class="input-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required/>
+        </div>
+        <div class="input-group">
+            <label for="password1">Password:</label>
+            <input type="password" id="password1" name="password1"/>
+        </div>
+        <div class="input-group">
+            <label for="password2">Password again:</label>
+            <input type="password" id="password2" name="password2"/>
+        </div>
+        <button type="submit" formaction="/register/" formmethod="post">
+            Register
+        </button>
+        <div class="link-under-button">
+            <a href="{{ url_for('login') }}">Login</a>
+        </div>
+    </form>
+{% endblock %}

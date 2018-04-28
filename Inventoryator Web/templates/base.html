@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventoryator - {% block title %}{% endblock %}</title>
+    {% assets 'css' %}
+        <link type="text/css" href="{{ ASSET_URL }}" rel="stylesheet"/>
+    {% endassets %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-2.2.3.min.js') }}"></script>
+    {% assets 'js' %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    {% block includes %}
+    {% endblock %}
+</head>
+<body>
+<div class="navbar">
+    <h1>Inventoryator</h1>
+
+    {% if current_user.is_authenticated %}
+        <div class="login-blurb">
+            HALLO, {{ current_user.username }} -- <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    {% endif %}
+</div>
+<div class="content">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div>{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ inventory.name }}
+{% endblock %}
+
+{% block includes %}
+{% endblock %}
+
+{% block content %}
+    {% if current_user.is_authenticated %}
+        <h3>
+            {{ inventory.name }}
+        </h3>
+        <p>
+            {{ inventory.description }}
+        </p>
+        {% if inventory.list_items %}
+            <table>
+                {% for item in inventory.list_items %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="{{ item.id }}" onclick="showDeleteButton()"/>
+                        </td>
+                        <td>
+                            {{ item.number }}
+                        </td>
+                        <td>
+                            {{ item.name }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <button class="hidden" type="button" id="delete_button" onclick="deleteItems()">Delete Selected</button>
+        {% else %}
+            This inventory is empty.
+        {% endif %}
+        <div>
+            <button type="button" id="new-item" onclick="toggleNewItem()">Add Item</button>
+            <div class="hidden" id="item-form">
+                <form action="{{ url_for('new_item') }}" method="post">
+                    <label for="item-name">Name</label>
+                    <input type="text" id="item-name" name="name"/>
+                    <label for="item-count">Quantity</label>
+                    <input type="text" id="item-count" name="quantity"/>
+                    <input type="hidden" id="inventory_id" name="inventory_id" value="{{ inventory.id }}"/>
+                    <button type="submit" id="add-item">Add Item</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

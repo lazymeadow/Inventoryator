@@ -1,0 +1,6 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+marshmallow==1.0.0
+webargs==0.15.0
+alembic
