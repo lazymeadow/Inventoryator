@@ -1,0 +1,142 @@
+@import "./css/windu-colors.less";
+@import "./fonts/fonts.css";
+
+// copied from windu 7/23/17
+
+body {
+  font-family: "eau_douce", sans-serif;
+}
+
+.hidden {
+  display:none;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  alignment: center;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.percent-w-30 {
+  width: 30%;
+}
+
+.percent-w-40 {
+  width: 40%;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.navbar {
+  vertical-align: middle;
+  .text-left;
+  position: absolute;
+  left: 0;
+  width: 100%;
+
+  & h1 {
+    font-size: 2.5em;
+    text-transform: lowercase;
+    margin-left: 10px;
+  }
+
+  & h2 {
+    font-size: 2em;
+    text-transform: uppercase;
+  }
+
+  & h1, h2 {
+    .inline-block;
+  }
+
+  .login-blurb {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 10px;
+  }
+}
+
+.content {
+  position: relative;
+  top: 65px;
+}
+
+body, h1, h2, h3 {
+  color: @dark-ocean-blue;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 4em;
+  margin: 0;
+}
+
+h2 {
+  font-weight: 900;
+  font-size: 3em;
+}
+
+button, select, input {
+  font-weight: bold;
+  margin: 5px;
+  padding: 5px;
+  border: none;
+  font-family: inherit;
+  color: @darker-ocean-blue;
+
+  &:hover {
+    color: @dark-sky-blue;
+    background-color: @light-sky-blue;
+  }
+}
+
+a {
+  text-decoration: none;
+
+  & > div {
+    background-color: @light-ocean-blue;
+  }
+
+  &:hover {
+    &, h1 > &, h2 > &, & > div > h2 {
+      color: @sky-blue;
+    }
+
+    & > div {
+      background-color: @light-sky-blue;
+    }
+  }
+
+  &:visited {
+    color: @darker-ocean-blue;
+  }
+}
+
+@import "./css/style.less";
