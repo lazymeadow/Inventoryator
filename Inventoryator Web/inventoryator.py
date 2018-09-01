@@ -23,6 +23,7 @@ assets.register('js', js_bundle)
 
 flask_mysql_config(app)
 db.init_app(app)
+db.create_all(app=app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -162,4 +163,4 @@ def new_item(args):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)
